@@ -24,6 +24,6 @@
    - Navigate to "Events" to see the list (populated from database).
 
 ## Features
-- **Frontend**: HTML5, Tailwind CSS, Vanilla JS.
+- **Frontend**: HTML5, Tailwind CSS.
 - **Backend**: Java HTTP Server (No heavy frameworks).
 - **Database**: MySQL.
