@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Create Event</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-active {
+            background-color: #135bec20;
+            color: #135bec;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SideNavBar (Copied from index.html) -->
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col shrink-0">
+            <div class="p-6 flex flex-col gap-8 h-full">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary size-10 rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined">event_note</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">EventTracker</h1>
+                        <p class="text-slate-500 text-xs font-normal">Eng. Dept.</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-1 grow">
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="index.html">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors"
+                        href="events.html">
+                        <!-- Highlight Events since this is a sub-page of Events -->
+                        <span class="material-symbols-outlined">calendar_today</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="calendar.html">
+                        <span class="material-symbols-outlined">date_range</span>
+                        <p class="text-sm font-medium">Calendar</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="reports.html">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <!-- TopNavBar -->
+            <header
+                class="h-16 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-8 flex-1">
+                    <h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">Create New Event</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <!-- User Profile -->
+                    <div
+                        class="bg-slate-200 dark:bg-slate-700 rounded-full size-9 overflow-hidden border-2 border-white dark:border-slate-800">
+                        <img alt="User profile" class="w-full h-full object-cover"
+                            src="https://ui-avatars.com/api/?name=Admin&background=random" />
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Body -->
+            <div class="p-8">
+                <div class="max-w-xl w-full space-y-8 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-lg mx-auto">
+                    <div>
+                        <h2 class="mt-6 text-center text-3xl font-extrabold">Event Details</h2>
+                    </div>
+                    <!-- Form -->
+                    <form class="mt-8 space-y-6" id="createEventForm">
+                        <div class="rounded-md shadow-sm -space-y-px">
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium mb-1">Event Title</label>
+                                <input name="title" required
+                                    class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 placeholder-gray-500 text-slate-900 dark:text-white focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                    placeholder="e.g. Annual Tech Symposium">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium mb-1">Description</label>
+                                <textarea name="description" rows="3"
+                                    class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 placeholder-gray-500 text-slate-900 dark:text-white focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Date</label>
+                                    <input name="eventDate" type="datetime-local" required
+                                        class="rounded-lg w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 text-slate-900 dark:text-white sm:text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Location</label>
+                                    <input name="location" required
+                                        class="rounded-lg w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 text-slate-900 dark:text-white sm:text-sm"
+                                        placeholder="Lab 101">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium mb-1">Department</label>
+                                <select name="departmentId" id="deptSelect"
+                                    class="rounded-lg w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 text-slate-900 dark:text-white sm:text-sm">
+                                    <option value="" disabled selected>Select a Department</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <button type="submit"
+                                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                Create Event
+                            </button>
+                            <button type="button" onclick="window.history.back()"
+                                class="group relative w-full flex justify-center py-2 px-4 border border-slate-300 text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script>
+        // If we are running on port 8000 (backend), use relative paths.
+        // If we are running on VS Code Live Server (5500/5501), point to backend at 8000.
+        const API_BASE = window.location.port === '8000' ? '' : 'http://localhost:8000';
+
+        // Fetch Departments
+        fetch(`${API_BASE}/api/departments`)
+            .then(r => r.json())
+            .then(depts => {
+                const select = document.getElementById('deptSelect');
+                depts.forEach(d => {
+                    const option = document.createElement('option');
+                    option.value = d.id;
+                    option.innerText = d.name;
+                    select.appendChild(option);
+                });
+            })
+            .catch(e => console.error("Error loading departments", e));
+
+        document.getElementById('createEventForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                eventDate: formData.get('eventDate'),
+                location: formData.get('location'),
+                departmentId: parseInt(formData.get('departmentId')),
+                status: 'SCHEDULED'
+            };
+
+            fetch(`${API_BASE}/api/events`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(r => {
+                    if (r.ok) {
+                        alert('Event Created!');
+                        window.location.href = 'events.html';
+                    } else {
+                        r.text().then(text => alert('Error creating event: ' + text));
+                    }
+                })
+                .catch(e => {
+                    console.error(e);
+                    alert('Connection Error. Make sure Java Backend is running on port 8000.');
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Event Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#135bec", "background-light": "#f6f6f8", "background-dark": "#101622" },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-active {
+            background-color: #135bec20;
+            color: #135bec;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SideNavBar -->
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col shrink-0">
+            <div class="p-6 flex flex-col gap-8 h-full">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary size-10 rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined">event_note</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">EventTracker</h1>
+                        <p class="text-slate-500 text-xs font-normal">Eng. Dept.</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-1 grow">
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="index.html">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="events.html">
+                        <span class="material-symbols-outlined">calendar_today</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="calendar.html">
+                        <span class="material-symbols-outlined">date_range</span>
+                        <p class="text-sm font-medium">Calendar</p>
+                    </a>
+                    <a class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors"
+                        href="reports.html">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <header
+                class="h-16 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-8 flex-1">
+                    <h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">Post-Event Report</h2>
+                </div>
+            </header>
+
+            <div class="p-8 space-y-8">
+                <!-- Report Header -->
+                <div
+                    class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                    <span
+                        class="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-bold uppercase tracking-widest rounded mb-2"
+                        id="reportStatus">Completed</span>
+                    <h1 class="text-3xl font-bold mb-2" id="reportTitle">Loading...</h1>
+                    <div class="flex gap-6 text-sm text-slate-500">
+                        <span class="flex items-center gap-1"><span
+                                class="material-symbols-outlined text-lg">calendar_month</span> <span
+                                id="reportDate">--</span></span>
+                        <span class="flex items-center gap-1"><span
+                                class="material-symbols-outlined text-lg">location_on</span> <span
+                                id="reportLocation">--</span></span>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <p class="text-sm text-slate-500 font-medium uppercase mb-2">Total Registrations</p>
+                        <p class="text-4xl font-bold text-primary" id="statRegistrations">0</p>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <p class="text-sm text-slate-500 font-medium uppercase mb-2">Confirmed Attributes</p>
+                        <p class="text-4xl font-bold text-green-600" id="statAttendance">0</p>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <p class="text-sm text-slate-500 font-medium uppercase mb-2">Attendance Rate</p>
+                        <p class="text-4xl font-bold text-blue-500" id="statRate">0%</p>
+                    </div>
+                </div>
+
+                <!-- Action -->
+                <div class="flex gap-4">
+                    <button onclick="window.print()"
+                        class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined">print</span> Print Report
+                    </button>
+                    <a href="reports.html"
+                        class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2">
+                        Back to All Reports
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Logic to fetch data
+        const API_BASE = window.location.port === '8000' ? '' : 'http://localhost:8000';
+        const params = new URLSearchParams(window.location.search);
+        const eventId = params.get('id');
+
+        if (eventId) {
+            Promise.all([
+                fetch(`${API_BASE}/api/events`).then(r => r.json()),
+                fetch(`${API_BASE}/api/registrations?eventId=${eventId}`).then(r => r.json())
+            ]).then(([events, registrations]) => {
+                const event = events.find(e => e.id == eventId);
+                if (event) {
+                    document.getElementById('reportTitle').innerText = event.title;
+                    document.getElementById('reportDate').innerText = new Date(event.eventDate).toLocaleDateString();
+                    document.getElementById('reportLocation').innerText = event.location;
+                    // document.getElementById('reportStatus').innerText = event.status; 
+                }
+
+                const total = registrations.length;
+                const attended = registrations.filter(r => r.attended).length;
+                const rate = total > 0 ? Math.round((attended / total) * 100) : 0;
+
+                document.getElementById('statRegistrations').innerText = total;
+                document.getElementById('statAttendance').innerText = attended;
+                document.getElementById('statRate').innerText = rate + "%";
+            });
+        }
+    </script>
+</body>
+
+</html>

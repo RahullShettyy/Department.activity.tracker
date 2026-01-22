@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Event Tracking Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .sidebar-active {
+            background-color: #135bec20;
+            color: #135bec;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SideNavBar -->
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col shrink-0">
+            <div class="p-6 flex flex-col gap-8 h-full">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary size-10 rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined">event_note</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">EventTracker</h1>
+                        <p class="text-slate-500 text-xs font-normal">Eng. Dept.</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-1 grow">
+                    <a class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors"
+                        href="index.html">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="events.html">
+                        <span class="material-symbols-outlined">calendar_today</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="calendar.html">
+                        <span class="material-symbols-outlined">date_range</span>
+                        <p class="text-sm font-medium">Calendar</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="reports.html">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors mt-auto"
+                        href="#">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium">Settings</p>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <!-- TopNavBar -->
+            <header
+                class="h-16 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-8 flex-1">
+                    <h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">Event Overview</h2>
+                    <div class="max-w-md w-full">
+                        <div class="relative flex items-center">
+                            <span class="material-symbols-outlined absolute left-3 text-slate-400">search</span>
+                            <input
+                                class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-white placeholder:text-slate-500"
+                                placeholder="Search events, departments..." type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all shadow-sm"
+                        onclick="window.location.href='events.html'">
+                        <span class="material-symbols-outlined text-sm">add</span>
+                        <span>Create New Event</span>
+                    </button>
+                    <button
+                        class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold px-4 py-2 rounded-lg transition-all border border-slate-200 dark:border-slate-700">
+                        <span class="material-symbols-outlined text-sm">download</span>
+                        <span>Export</span>
+                    </button>
+                    <div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
+                    <div
+                        class="bg-slate-200 dark:bg-slate-700 rounded-full size-9 overflow-hidden border-2 border-white dark:border-slate-800">
+                        <img alt="User profile" class="w-full h-full object-cover"
+                            src="https://ui-avatars.com/api/?name=Admin&background=random" />
+                    </div>
+                </div>
+            </header>
+            <!-- Page Body -->
+            <div class="p-8 space-y-8">
+                <!-- Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-white dark:bg-background-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wider">
+                                Upcoming Events</p>
+                            <div class="p-2 bg-primary/10 text-primary rounded-lg">
+                                <span class="material-symbols-outlined">upcoming</span>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight"
+                                id="upcomingEventsCount">0</p>
+                            <p class="text-emerald-500 text-sm font-semibold flex items-center">
+                                <span class="material-symbols-outlined text-sm">trending_up</span>
+                                +5%
+                            </p>
+                        </div>
+                    </div>
+                    <!-- More stats... -->
+                    <div
+                        class="bg-white dark:bg-background-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wider">
+                                Completed Events</p>
+                            <div class="p-2 bg-emerald-500/10 text-emerald-500 rounded-lg">
+                                <span class="material-symbols-outlined">task_alt</span>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight"
+                                id="completedEventsCount">48</p>
+                            <p class="text-rose-500 text-sm font-semibold flex items-center">
+                                <span class="material-symbols-outlined text-sm">trending_down</span>
+                                -2%
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-background-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wider">
+                                Total Attendance</p>
+                            <div class="p-2 bg-amber-500/10 text-amber-500 rounded-lg">
+                                <span class="material-symbols-outlined">groups</span>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight"
+                                id="totalAttendanceCount">2,450</p>
+                            <p class="text-emerald-500 text-sm font-semibold flex items-center">
+                                <span class="material-symbols-outlined text-sm">trending_up</span>
+                                +12%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Recent Events Section -->
+                <div
+                    class="bg-white dark:bg-background-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                    <div
+                        class="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <h2 class="text-slate-900 dark:text-white text-lg font-bold">Recent Events</h2>
+                        <a href="events.html" class="text-primary hover:text-primary/80 text-sm font-semibold">View
+                            all</a>
+                    </div>
+                    <div class="overflow-x-auto @container">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 dark:bg-slate-900/50">
+                                    <th
+                                        class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                        Event Name</th>
+                                    <th
+                                        class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                        Date</th>
+                                    <th
+                                        class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                        Department</th>
+                                    <th
+                                        class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 text-right">
+                                        Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentEventsTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
+                                <!-- Content will be populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchEvents();
+        });
+
+        function fetchEvents() {
+            fetch('/api/events')
+                .then(response => response.json())
+                .then(events => {
+                    updateStats(events);
+                    populateTable(events);
+                    // Dynamic API Base URL for Cross-Origin (Live Server) support
+                    const API_BASE = window.location.port === '8000' ? '' : 'http://localhost:8000';
+
+                    // Fetch Stats
+                    fetch(`${API_BASE}/api/dashboard/stats`)
+                        .then(response => response.json())
+                        .then(stats => {
+                            // Update Stats
+                            document.getElementById('upcomingEventsCount').innerText = stats.upcomingEvents;
+                            document.getElementById('completedEventsCount').innerText = stats.completedEvents;
+                            document.getElementById('totalAttendanceCount').innerText = stats.totalAttendance;
+                        })
+                        .catch(err => console.error('Error fetching dashboard stats:', err));
+
+                    // Update Recent Events Table
+                    // We can reuse the `events` passed to this function which is `getAllEvents`
+                    // But if we want to ensure we have the latest, we can just use the events already fetched.
+                    const tbody = document.getElementById('recentEventsTableBody');
+                    tbody.innerHTML = ''; // Clear loading
+
+                    // Take last 5 events
+                    events.slice(0, 5).forEach(event => {
+                        const tr = document.createElement('tr');
+                        tr.className = "hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer";
+                        tr.onclick = () => window.location.href = `event-detail.html?id=${event.id}`;
+
+                        let statusColor = 'primary';
+                        if (event.status === 'COMPLETED') statusColor = 'emerald-500';
+                        else if (event.status === 'CANCELLED') statusColor = 'rose-500';
+
+                        tr.innerHTML = `
+                <td class="px-6 py-5">
+                    <div class="flex items-center gap-3">
+                        <div class="size-2 rounded-full bg-${statusColor}"></div>
+                        <span class="text-sm font-semibold text-slate-900 dark:text-white">${event.title}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400 font-medium">${new Date(event.eventDate).toLocaleDateString()}</td>
+                <td class="px-6 py-5">
+                    <span class="text-xs font-medium px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Dept ${event.departmentId}</span>
+                </td>
+                <td class="px-6 py-5 text-right">
+                     <span class="inline-flex items-center gap-1 text-xs font-bold text-${statusColor === 'primary' ? 'primary' : 'emerald-600'} px-3 py-1 rounded-full bg-${statusColor}/10 border border-${statusColor}/20">
+                        ${event.status}
+                    </span>
+                </td>
+            `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(err => {
+                    console.error('Error fetching events:', err);
+                    // Fallback or error state
+                });
+    </script>
+</body>
+
+</html>

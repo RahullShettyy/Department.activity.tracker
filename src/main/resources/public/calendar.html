@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Calendar - EventTracker</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-active {
+            background-color: #135bec20;
+            color: #135bec;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SideNavBar -->
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col shrink-0">
+            <div class="p-6 flex flex-col gap-8 h-full">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary size-10 rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined">event_note</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">EventTracker</h1>
+                        <p class="text-slate-500 text-xs font-normal">Eng. Dept.</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-1 grow">
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="index.html">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="events.html">
+                        <span class="material-symbols-outlined">calendar_today</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors"
+                        href="calendar.html">
+                        <span class="material-symbols-outlined">date_range</span>
+                        <p class="text-sm font-medium">Calendar</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="reports.html">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <!-- TopNavBar -->
+            <header
+                class="h-16 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-8 flex-1">
+                    <h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">Calendar</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="bg-slate-200 dark:bg-slate-700 rounded-full size-9 overflow-hidden border-2 border-white dark:border-slate-800">
+                        <img alt="User profile" class="w-full h-full object-cover"
+                            src="https://ui-avatars.com/api/?name=Admin&background=random" />
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Body -->
+            <div class="p-8 h-full flex flex-col">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold" id="currentMonthYear">January 2026</h2>
+                    <div class="flex gap-2">
+                        <button onclick="changeMonth(-1)"
+                            class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <button onclick="changeMonth(1)"
+                            class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Calendar Grid -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-xl shadow border border-slate-200 dark:border-slate-700 flex-1 flex flex-col">
+                    <!-- Weekdays -->
+                    <div class="grid grid-cols-7 border-b border-slate-200 dark:border-slate-700">
+                        <div class="py-3 text-center text-sm font-semibold text-slate-500">Sun</div>
+                        <div class="py-3 text-center text-sm font-semibold text-slate-500">Mon</div>
+                        <div class="py-3 text-center text-sm font-semibold text-slate-500">Tue</div>
+                        <div class="py-3 text-center text-sm font-semibold text-slate-500">Wed</div>
+                        <div class="py-3 text-center text-sm font-semibold text-slate-500">Thu</div>
+                        <div class="py-3 text-center text-sm font-semibold text-slate-500">Fri</div>
+                        <div class="py-3 text-center text-sm font-semibold text-slate-500">Sat</div>
+                    </div>
+                    <!-- Days -->
+                    <div class="grid grid-cols-7 flex-1 auto-rows-fr" id="calendarGrid">
+                        <!-- JS GENERATED -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE = window.location.port === '8000' ? '' : 'http://localhost:8000';
+        let currentDate = new Date();
+        let events = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchEvents();
+        });
+
+        function fetchEvents() {
+            fetch(`${API_BASE}/api/events`)
+                .then(r => r.json())
+                .then(data => {
+                    events = data;
+                    renderCalendar();
+                })
+                .catch(e => console.error(e));
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const monthYear = document.getElementById('currentMonthYear');
+            grid.innerHTML = '';
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            monthYear.innerText = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(currentDate);
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Empty cells for days before the 1st
+            for (let i = 0; i < firstDay; i++) {
+                grid.appendChild(document.createElement('div'));
+            }
+
+            // Days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = "min-h-[100px] border-t border-r border-slate-100 dark:border-slate-700 p-2 relative hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors";
+
+                const dateLabel = document.createElement('span');
+                dateLabel.className = "text-sm font-medium text-slate-700 dark:text-slate-300 block mb-1";
+                dateLabel.innerText = day;
+                dayCell.appendChild(dateLabel);
+
+                // Check for events on this day
+                const currentDayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                const dayEvents = events.filter(e => e.eventDate.startsWith(currentDayStr));
+
+                dayEvents.forEach(e => {
+                    const eventBadge = document.createElement('div');
+                    eventBadge.className = "text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded mb-1 truncate cursor-pointer hover:bg-primary hover:text-white transition-colors";
+                    eventBadge.innerText = e.title;
+                    eventBadge.title = `${e.title} (${e.location})`;
+                    eventBadge.onclick = () => window.location.href = `event-detail.html?id=${e.id}`;
+                    dayCell.appendChild(eventBadge);
+                });
+
+                grid.appendChild(dayCell);
+            }
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            renderCalendar();
+        }
+    </script>
+</body>
+
+</html>

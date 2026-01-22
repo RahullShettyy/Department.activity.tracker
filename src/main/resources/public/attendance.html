@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Attendance Tracker</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-active {
+            background-color: #135bec20;
+            color: #135bec;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SideNavBar -->
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col shrink-0">
+            <div class="p-6 flex flex-col gap-8 h-full">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary size-10 rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined">event_note</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">EventTracker</h1>
+                        <p class="text-slate-500 text-xs font-normal">Eng. Dept.</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-1 grow">
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="index.html">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors"
+                        href="events.html">
+                        <span class="material-symbols-outlined">calendar_today</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="calendar.html">
+                        <span class="material-symbols-outlined">date_range</span>
+                        <p class="text-sm font-medium">Calendar</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        href="reports.html">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <header
+                class="h-16 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-8 flex-1">
+                    <h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">Attendance Tracker</h2>
+                </div>
+            </header>
+
+            <div class="p-8">
+                <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold" id="eventName">Loading Event...</h2>
+                        <a href="javascript:history.back()"
+                            class="text-primary hover:underline text-sm font-medium">Back to Event</a>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Student ID</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Name</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Department</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Attendance</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+                                id="studentList">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p id="noDataMsg" class="hidden text-center py-4 text-gray-500">No registrations found.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script>
+        const API_BASE = window.location.port === '8000' ? '' : 'http://localhost:8000';
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!eventId) {
+                document.body.innerHTML = "<p class='p-8 text-red-500'>No Event ID provided.</p>";
+                return;
+            }
+
+            // Fetch Event Info
+            fetch(`${API_BASE}/api/events`)
+                .then(r => r.json())
+                .then(events => {
+                    const event = events.find(e => e.id == eventId);
+                    if (event) document.getElementById('eventName').innerText = event.title + " - Attendance";
+                });
+
+            // Fetch Registrations (Using dedicated endpoint we need to create)
+            fetch(`${API_BASE}/api/registrations?eventId=${eventId}`)
+                .then(r => r.json())
+                .then(registrations => {
+                    const tbody = document.getElementById('studentList');
+                    if (registrations.length === 0) {
+                        document.getElementById('noDataMsg').classList.remove('hidden');
+                        return;
+                    }
+
+                    registrations.forEach(reg => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#${reg.studentId}</td>
+                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">${reg.studentName || 'Unknown'}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${reg.department || 'N/A'}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded" 
+                                        ${reg.attended ? 'checked' : ''} 
+                                        onchange="toggleAttendance(${reg.id}, this.checked)">
+                                    <span class="ml-2 text-gray-700 dark:text-gray-300">Present</span>
+                                </label>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(e => console.error(e));
+        });
+
+        function toggleAttendance(regId, isPresent) {
+            // Ideally call API to update
+            console.log(`Registration ${regId} attendance: ${isPresent}`);
+            fetch(`${API_BASE}/api/attendance`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ registrationId: regId, attended: isPresent })
+            }).catch(e => console.error(e));
+        }
+    </script>
+</body>
+
+</html>

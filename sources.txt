@@ -1,0 +1,11 @@
+src\main\java\com\tracker\Main.java
+src\main\java\com\tracker\config\DatabaseConfig.java
+src\main\java\com\tracker\controller\ApiHandler.java
+src\main\java\com\tracker\controller\StaticFileHandler.java
+src\main\java\com\tracker\dao\DepartmentDAO.java
+src\main\java\com\tracker\dao\EventDAO.java
+src\main\java\com\tracker\dao\RegistrationDAO.java
+src\main\java\com\tracker\model\Department.java
+src\main\java\com\tracker\model\Event.java
+src\main\java\com\tracker\model\Registration.java
+src\main\java\com\tracker\model\Student.java

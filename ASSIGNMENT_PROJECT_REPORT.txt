@@ -1,0 +1,144 @@
+ASSIGNMENT PROJECT REPORT
+
+ASSIGNMENT PROJECT NAME: Department Activity Tracker
+
+1. INTRODUCTION
+1.1 Background / Problem Context
+- The Department Activity Tracker is a specialized web-based application designed to manage and monitor various academic and extracurricular activities within a college department.
+- In many educational institutions, tracking event schedules, student registrations, and actual attendance is often done manually or through disconnected spreadsheets.
+- This leads to data inconsistency, difficulty in generating reports, and a lack of real-time visibility into department engagement.
+- Automating this process ensures that all event-related data is centralized, accessible, and accurate.
+- It allows faculty to plan events better and provides students with a clear view of upcoming opportunities.
+- The system simplifies the registration process, making it more user-friendly for students.
+- It also streamlines the attendance marking process, which is crucial for determining the success of an event.
+- Ultimately, this software-driven approach enhances the overall administrative efficiency of the department.
+
+1.2 Motivation
+- The motivation for this project stems from the need to apply core backend development concepts using Java and MySQL to a real-world problem.
+- Managing academic schedules can be complex, and building a custom solution allows for tailored features that standard tools might lack.
+- Personal interest in building lightweight, framework-less Java servers to understand the underlying mechanics of web communication was also a key driver.
+
+1.3 Objectives
+- To design a system that automates the tracking of department-level events and student participation.
+- To implement a custom Java HTTP server to handle both static content and API requests.
+- To apply database management concepts learned in the course using MySQL for persistent storage.
+- To create a responsive and modern user interface using standard web technologies like HTML, CSS, and JavaScript.
+
+1.4 Scope
+- The project covers event creation, scheduling, student registration for specific events, and attendance management.
+- It includes a dashboard for real-time statistics like total attendance and event counts.
+- It does NOT currently cover multi-user authentication, advanced role-based access control, or external email integrations.
+
+2. LITERATURE REVIEW
+2.1 Existing Systems
+- Google Forms: Often used for registrations but lacks centralized database integration and automated attendance tracking within a single dashboard.
+- Eventbrite: A powerful commercial tool but can be overkill and lacks the specific organizational hierarchy (Departments/Students) required for educational institutions.
+- University ERP Systems: Comprehensive but often slow, complex, and difficult to customize for small-scale departmental needs.
+- Manual Spreadsheets: The most common fallback, which is prone to human error and data loss.
+
+2.2 Key Concepts
+- Java HTTP Server: A built-in Java library used to create a lightweight web server without the overhead of heavy frameworks like Spring or Tomcat.
+- JDBC (Java Database Connectivity): An API for connecting and executing queries on a database, forming the backbone of the data persistence layer.
+- DAO (Data Access Object) Pattern: A design pattern that provides an abstract interface to some type of database or other persistence mechanism.
+- MVC (Model-View-Controller) Pattern: A software architectural pattern for implementing user interfaces on computers, separating the internal representation of information from the ways that information is presented to and accepted from the user.
+- RESTful API: A set of architectural constraints for creating Web Services that allow different systems to communicate over HTTP using JSON as the data exchange format.
+
+3. SYSTEM / PROJECT DESIGN
+3.1 System Architecture Diagram
+[ Browser (Client: HTML/JS) ] <--- HTTP (JSON/HTML) ---> [ Java Web Server ]
+                                                               |
+                                                               | (JDBC)
+                                                               v
+                                                         [ MySQL Database ]
+
+3.2 Architecture Explanation
+- Client Side: Built with HTML5, Tailwind CSS, and Vanilla JavaScript. It handles user interaction and makes asynchronous API calls.
+- Server Side: A lightweight Java application using `com.sun.net.httpserver`. It routes requests to various handlers (Static and API).
+- Data Access Layer: Uses the DAO pattern to interact with the MySQL database, ensuring clean separation of business logic and database queries.
+- Database: A relational MySQL database storing tables for departments, events, students, and their respective registrations.
+
+3.3 Flowchart / Use Case Diagram
+- Start -> User accesses Dashboard -> Request sent to Server -> Server fetches stats from DB -> Stats displayed on UI.
+- User selects "Events" -> API request fetches all events -> List rendered on screen.
+- User registers for Event -> POST request with student data -> Server validates and saves to `registrations` table -> Confirmation shown.
+
+4. IMPLEMENTATION DETAILS
+4.1 Technologies Used
+- Language: Java 17
+- Database: MySQL 8.3
+- Frontend: HTML5, CSS3, Tailwind CSS, Vanilla JavaScript
+- Libraries: GSON (JSON parsing), MySQL Connector/J
+- Build Tool: Maven
+
+4.2 Dataset Description
+- Source: Locally generated and maintained in MySQL.
+- Initial Data: The system starts with a pre-populated list of departments (CSE, ISE, Civil, etc.) via `schema.sql`.
+- Record Details: 
+    - `events`: title, description, date, location, status.
+    - `students`: student_id, name, email, department.
+    - `registrations`: mapping student to event with attendance status.
+
+4.3 Step-by-Step Implementation
+Module 1: Input - Interfaces for creating new events and student registration forms.
+Module 2: Processing - Java handlers parsing JSON data, DAO objects performing SQL insertions and updates.
+Module 3: Output - Dynamic dashboard metrics, event lists, and attendance reports.
+
+4.4 Code Snippets
+- Main Server Setup:
+  server.createContext("/api", new ApiHandler()); // Routes all /api paths to a custom handler.
+- Event DAO Insertion:
+  String sql = "INSERT INTO events (title, description, event_date, location, department_id) VALUES (?, ?, ?, ?, ?)";
+  // Uses PreparedStatement for security against SQL injection.
+
+5. RESULTS AND ANALYSIS
+5.1 Output Screenshots
+(Note: In the final PDF version, insert screenshots of Dashboard, Events List, and Create Event form here.)
+
+5.2 Result Explanation
+- The system successfully allows administrators to create events which are immediately visible on the dashboard and events page.
+- Registration logic correctly associates students with events and prevents duplicate entries for the same student in the same event.
+- Attendance can be toggled in real-time, and the dashboard stats reflect these changes dynamically.
+
+5.3 Advantages
+- Lightweight: No complex frameworks required to run.
+- Accurate: Real-time database updates ensure data integrity.
+- Scalable: The modular Java structure allows for easy addition of new features.
+- User-Friendly: Responsive UI works across different screen sizes.
+
+5.4 Limitations
+- Security: Lacks password protection for the administrative dashboard.
+- Localhost: Currently configured for local development and not yet deployed on a public server.
+- Error Handling: Basic error handling is implemented; more robust validation could be added.
+
+5.5 Future Enhancements
+- User Authentication: Add Login/Signup for faculty and students.
+- Notifications: Implement email or SMS alerts for upcoming events.
+- Reports: Add functionality to export attendance lists as PDF or Excel.
+- Mobile App: Create a mobile interface for easier attendance marking on the go.
+
+6. GITHUB DETAILS
+6.1 Repository URL
+- https://github.com/username/department-activity-tracker
+
+6.2 Repository Structure
+- /src/main/java: Java source code (DAO, Model, Controller).
+- /src/main/resources: Database schema and Public Web files.
+- /pom.xml: Maven configuration.
+
+6.3 README Contents
+- Project Title, Setup instructions for MySQL, Build steps with Maven, and Usage guide.
+
+7. CONCLUSION
+- The Department Activity Tracker successfully automates the management of academic events.
+- Through this project, Java backend development, JDBC integration, and fundamental web technologies were applied effectively.
+- This assignment highlights the importance of transitioning from manual systems to digital solutions for better organizational efficiency.
+
+8. REFERENCES
+[1] Oracle. "Java HTTP Server Documentation." docs.oracle.com
+[2] MySQL. "Connector/J Developer Guide." dev.mysql.com
+[3] Baeldung. "Introduction to the DAO Pattern in Java." baeldung.com
+[4] Tailwind Labs. "Tailwind CSS Documentation." tailwindcss.com
+[5] Google. "GSON User Guide." github.com/google/gson
+
+APPENDIX
+(The full source code of Main.java, ApiHandler.java, and Schema.sql is included in the project directory.)
