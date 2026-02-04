@@ -26,4 +26,4 @@
 ## Features
 - **Frontend**: HTML5, Tailwind CSS.
 - **Backend**: Java HTTP Server (No heavy frameworks).
-- **Database**: MySQL.
+- **Database**: MySQL
